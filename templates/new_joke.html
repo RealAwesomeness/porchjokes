@@ -7,14 +7,23 @@
     
     <style>
         .container{
+            position:absolute;
+            top:0;
+            left:0;
             padding:5%;
+        }
+        
+        .link{
+            color:black;
         }
         
         .site-footer{
             position:absolute;
+            left: 0;
             bottom:0;
             width:100vw;
             background:white;
+            text-align: center;
         }
         
     </style>
@@ -25,26 +34,26 @@
     <div class="container">
     
         <form method="POST" enctype="multipart/form-data">
-            <label>Name: <input type="text" name="username"></label>
+            <label>Name: <input type="text" name="username" required autofocus></label>
             <br />
             <br />
-            <label>Title: <input type="text" name="title"></label>
+            <label>Title: <input type="text" name="title" required></label>
             <br />
             <br />
-            <label>Joke:<br /><textarea name="joke" style="resize:both;"></textarea></label>
+            <label>Joke:<br /><textarea name="joke" style="resize:both;" rows="10" cols="50" required></textarea></label>
             <br />
             <br />
             <input type="submit" value="Post">
             <br />
         </form>
+        
+        <div class="push" id="push"></div>
+        
+        <footer class="site-footer" id="footer">
+                <p>This site Copyright (&copy;) Joshua Wang 2018.<br />Code and license at <a class="link" href="https://github.com/joshdabosh/porchjokes">its GitHub repository</a>.
+        </footer>
     
     </div>
-    
-    <div class="push" id="push"></div>
-        
-    <footer class="site-footer" id="footer">
-        <p>This site Copyright (&copy;) Joshua Wang 2018.<br />Code and license at <a class="link" href="https://github.com/joshdabosh/porchjokes">its GitHub repository</a>.
-    </footer>
     
     <script type="text/javascript" src="new_joke.js"></script>
     
