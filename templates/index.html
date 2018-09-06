@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>PorchJokes</title>
+    <meta charset="utf-8" />
+    
+    <style>
+    
+        .container{
+            padding:5%;
+        }
+        
+    </style>
+
+</head>
+<body>
+    
+    <div class="container">
+        <ul>
+            {% for joke in jokes %}
+                <li>{{ joke.title }} by {{ joke.username }}</li><br />
+            {% endfor %}
+        </ul>
+    </div>
+    
+</body>
+</html>
