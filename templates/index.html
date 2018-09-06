@@ -11,15 +11,24 @@
             padding:5%;
         }
         
+        .link{
+            color:black;
+        }
+        
     </style>
 
 </head>
 <body>
     
     <div class="container">
+        
+        <h2>Here are some jokes (<a href="/new_joke" class="link">submit your own</a>)!</h2>
+        
         <ul>
             {% for joke in jokes %}
-                <li>{{ joke.title }} by {{ joke.username }}</li><br />
+                <li class="joke-info">{{ joke.title }} by {{ joke.username }}
+                    <p class="joke">{{ joke.joke }}</p>
+                </li><br />
             {% endfor %}
         </ul>
     </div>

@@ -64,16 +64,16 @@ def new_joke():
             db.session.commit()
             
         if currTime - last < 500:
-            flashes.append("Please wait {} seconds before you try again".format(int(500-last)))
+            toFlash.append("Please wait {} seconds before you try again".format(int(500-last)))
 
         if len(request.form["username"]) > 50:
-            flashes.append("You need less than 50 characters for your username. Consider removing {} characters from your username.".format(50-len(request.form["username"])))
+            toFlash.append("You need less than 50 characters for your username. Consider removing {} characters from your username.".format(50-len(request.form["username"])))
 
         if len(request.form["username"]) > 100:
-            flashes.append("You need less than 50 characters for your title. Consider removing {} characters from your title.".format(100-len(request.form["title"])))
+            toFlash.append("You need less than 50 characters for your title. Consider removing {} characters from your title.".format(100-len(request.form["title"])))
 
         if len(request.form["username"]) > 60:
-            flashes.append("You need less than 50 characters for your joke. Consider removing {} characters from your joke.".format(600-len(request.form["joke"])))
+            toFlash.append("You need less than 50 characters for your joke. Consider removing {} characters from your joke.".format(600-len(request.form["joke"])))
 
         if len(toFlash) > 0:
             flash(toFlash)
