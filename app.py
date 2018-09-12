@@ -72,8 +72,8 @@ def new_joke():
         if len(request.form["username"]) > 100:
             toFlash.append("You need less than 50 characters for your title. Consider removing {} characters from your title.".format(100-len(request.form["title"])))
 
-        if len(request.form["username"]) > 60:
-            toFlash.append("You need less than 50 characters for your joke. Consider removing {} characters from your joke.".format(600-len(request.form["joke"])))
+        if len(request.form["joke"]) > 9001:
+            toFlash.append("You need less than 9001 characters for your joke. Consider removing {} characters from your joke.".format(600-len(request.form["joke"])))
 
         if len(toFlash) > 0:
             flash(toFlash)
