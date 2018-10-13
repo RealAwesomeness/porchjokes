@@ -25,7 +25,12 @@
             background:white;
             text-align: center;
         }
-        
+
+	.pinned{
+	    padding-bottom: 5%;
+	    width: 100%;
+	    border-bottom: 2px solid black;
+	}        
     </style>
 
 </head>
@@ -34,7 +39,16 @@
     <div class="container">
         
         <h2>Here are some jokes (<a href="/new_joke" class="link">submit your own</a>)!</h2>
-        
+        <h3>Pinned jokes</h3>
+	<div class="pinned">
+	    <ul class="pinnedlist">
+		{% for joke in p_jokes %}
+		    <li class="joke-info">{{ joke.title }} by {{joke.username}}
+			<p class="joke">{{ joke.joke }}</p>
+		    </li><br />
+		{% endfor %}
+	    </ul>	
+	</div>
         <ul>
             {% for joke in jokes %}
                 <li class="joke-info">{{ joke.title }} by {{ joke.username }}

@@ -33,6 +33,7 @@ class Joke(db.Model):
     title = db.Column(db.String(160000))
     joke = db.Column(db.String(160000))
     ip = db.Column(db.String(160000))
+    pin = db.Column(db.Integer)
 
     def __repr__(self):
         return str(self.id)
@@ -40,7 +41,8 @@ class Joke(db.Model):
 @app.route("/")
 def index():
     jokes = Joke.query.order_by(Joke.id.desc()).all()
-    return render_template("index.html", jokes=jokes)
+    p_jokes = Joke.query.filter_by(pin="1").all()
+    return render_template("index.html", p_jokes=p_jokes, jokes=jokes)
 
 
 @app.route("/new_joke", methods=["GET", "POST"])
@@ -57,13 +59,13 @@ def new_joke():
         currTime = time.time()
         last = session["last"]
         
-        if currTime - last >= 500 and len(request.form["username"]) <= 50 and len(request.form["title"]) <= 100 and len(request.form["joke"]) <= 600:
+        if currTime - last >= 60 and len(request.form["username"]) <= 50 and len(request.form["title"]) <= 100 and len(request.form["joke"]) <= 600:
             session["last"] = time.time()
             submittedJoke = Joke(username=request.form["username"], title=request.form["title"], joke=request.form["joke"], ip=str(request.environ.get("HTTP_X_REAL_IP", request.remote_addr)))
             db.session.add(submittedJoke)
             db.session.commit()
             
-        if currTime - last < 500:
+        if currTime - last < 60:
             toFlash.append("Please wait {} seconds before you try again".format(int(500-last)))
 
         if len(request.form["username"]) > 50:
