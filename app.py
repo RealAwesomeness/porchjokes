@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flaskext.mysql import MySQL
 import time
 import json
+import datetime
 
 key = json.loads(open("../secrets/porchjokes.json").read())["key"]
 
@@ -34,6 +35,8 @@ class Joke(db.Model):
     joke = db.Column(db.String(160000))
     ip = db.Column(db.String(160000))
     pin = db.Column(db.Integer)
+    date = db.Column(db.String(160000))
+    time = db.Column(db.String(160000))
 
     def __repr__(self):
         return str(self.id)
@@ -61,7 +64,21 @@ def new_joke():
         
         if currTime - last >= 60 and len(request.form["username"]) <= 50 and len(request.form["title"]) <= 100 and len(request.form["joke"]) <= 600:
             session["last"] = time.time()
-            submittedJoke = Joke(username=request.form["username"], title=request.form["title"], joke=request.form["joke"], ip=str(request.environ.get("HTTP_X_REAL_IP", request.remote_addr)))
+            info = str(datetime.datetime.now()).split()
+            
+            date = info[0].split("-")
+            year, month, day = date[0], date[1], date[2]
+
+            t = ":".join(info[1].split(":")[:2])
+            
+            submittedJoke = Joke(
+                username=request.form["username"],
+                title=request.form["title"],
+                joke=request.form["joke"],
+                ip=str(request.environ.get("HTTP_X_REAL_IP", request.remote_addr)),
+                date="{}/{}/{}".format(month, day, year),
+                time=str(t)
+            )
             db.session.add(submittedJoke)
             db.session.commit()
             

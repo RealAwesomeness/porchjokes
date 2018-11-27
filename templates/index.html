@@ -43,7 +43,7 @@
 	<div class="pinned">
 	    <ul class="pinnedlist">
 		{% for joke in p_jokes %}
-		    <li class="joke-info">{{ joke.title }} by {{joke.username}}
+		    <li class="joke-info">{{ joke.title }} by {{ joke.username }} at {{ joke.time }}, on {{ joke.date }}
 			<p class="joke">{{ joke.joke }}</p>
 		    </li><br />
 		{% endfor %}
@@ -51,7 +51,7 @@
 	</div>
         <ul>
             {% for joke in jokes %}
-                <li class="joke-info">{{ joke.title }} by {{ joke.username }}
+                <li class="joke-info">{{ joke.title }} by {{ joke.username }} at {{ joke.time }}, on {{ joke.date }}
                     <p class="joke">{{ joke.joke }}</p>
                 </li><br />
             {% endfor %}
