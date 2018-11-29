@@ -6,7 +6,7 @@ import json
 import datetime
 
 key = json.loads(open("../secrets/porchjokes.json").read())["key"]
-
+ban_list = []
 
 app = Flask(__name__)
 app.config.update({
@@ -62,7 +62,7 @@ def new_joke():
         currTime = time.time()
         last = session["last"]
         
-        if currTime - last >= 60 and len(request.form["username"]) <= 50 and len(request.form["title"]) <= 100 and len(request.form["joke"]) <= 600:
+        if currTime - last >= 60 and len(request.form["username"]) <= 50 and len(request.form["title"]) <= 100 and len(request.form["joke"]) <= 600 and not request.remote_addr in ban_list:
             session["last"] = time.time()
             info = str(datetime.datetime.now()).split()
             
@@ -84,6 +84,8 @@ def new_joke():
             
         if currTime - last < 60:
             toFlash.append("Please wait {} seconds before you try again".format(int(500-last)))
+        if currTime - last < 1:
+            ban_list.append(request.remote_addr)
 
         if len(request.form["username"]) > 50:
             toFlash.append("You need less than 50 characters for your username. Consider removing {} characters from your username.".format(50-len(request.form["username"])))
